@@ -9,7 +9,7 @@ import cookieParser from "cookie-parser";
 import path from "path";
 
 const app = express();
-const PORT = process.env.port;
+const PORT = process.env.PORT;
 const __dirname = path.resolve();
 
 app.use(
