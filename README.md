@@ -37,7 +37,8 @@ It provides smooth video calls, instant messaging, and a modern **glassmorphic U
 - JWT Authentication  
 
 **APIs & Services:**  
-- Stream API (Video & Chat)    
+- Stream API (Video & Chat)
+- OpenAI API (Friend Recommendations)
 
 ---
 
