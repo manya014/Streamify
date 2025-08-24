@@ -230,7 +230,7 @@ Make sure you have the following installed:
    git clone https://github.com/your-username/streamify.git
    cd streamify
 Install dependencies
-
+```
 bash
 Copy
 Edit
@@ -242,9 +242,9 @@ npm install
 cd ../client
 npm install
 Setup environment variables
-
+```
 Create a .env file inside the server folder and add:
-
+```
 env
 Copy
 Edit
@@ -254,8 +254,9 @@ STREAM_API_KEY=your_stream_api_key
 STREAM_API_SECRET=your_stream_api_secret
 OPENAI_API_KEY=your_openai_api_key
 JWT_SECRET=your_jwt_secret
+```
 Run the app
-
+```
 bash
 Copy
 Edit
@@ -268,7 +269,7 @@ cd ../client
 npm start
 Visit http://localhost:3000/ 🚀
 
-
+```
 ## 📸 Screenshots
 
 <img width="1625" height="727" alt="image" src="https://github.com/user-attachments/assets/fb57339d-5f56-4fee-a220-23ba6844cc2a" />
