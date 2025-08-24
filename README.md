@@ -1,4 +1,4 @@
-```
+
 # 📺 Streamify – Video Calling & Chatting Application
 
 Streamify is a **real-time video calling and chatting application** built using the **MERN stack** with seamless integration of the **Stream API**.  
