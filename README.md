@@ -132,7 +132,7 @@ Make sure you have the following installed:
    ```
 
 5. Visit **[http://localhost:3000/](http://localhost:3000/)** 🚀
-
+````
 ---
 
 ## 📸 Screenshots
