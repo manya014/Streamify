@@ -160,7 +160,7 @@ This project is licensed under the **MIT License** – see the [LICENSE](LICENSE
 
 **Manya Rawat**
 
-* GitHub: [@manya014](https://github.com/your-username)
+* GitHub: [@manya014](https://github.com/manya014)
 * LinkedIn: [Manya Rawat](https://www.linkedin.com/in/manya-rawat-55759627b/)
 
 ---
