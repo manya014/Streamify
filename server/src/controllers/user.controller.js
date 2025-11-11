@@ -1,103 +1,18 @@
 import User from "../models/User.js";
 import FriendRequest from "../models/FriendRequest.js"; 
 
-import { OpenAI } from "openai";
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 export async function getRecommendedUsers(req, res) {
   try {
     const currentUserId = req.user.id;
     const currentUser = req.user;
 
-    // Step 1: Fetch potential users
-    const potentialUsers = await User.find({
+    const recommendedUsers = await User.find({
       $and: [
-        { _id: { $ne: currentUserId } },           // exclude self
-        { _id: { $nin: currentUser.friends } },   // exclude existing friends
-        { isOnboarded: true },                     // only onboarded
+        { _id: { $ne: currentUserId } }, //exclude current user
+        { _id: { $nin: currentUser.friends } }, // exclude current user's friends
+        { isOnboarded: true },
       ],
-    }).lean();
-
-    if (potentialUsers.length === 0) {
-      return res.status(200).json([]);
-    }
-
-    // Step 2: Prepare input for AI
-    const inputData = {
-      currentUser: {
-        id: currentUser._id,
-        fullName: currentUser.fullName,
-        bio: currentUser.bio,
-        nativeLanguage: currentUser.nativeLanguage,
-        learningLanguage: currentUser.learningLanguage,
-        location: currentUser.location,
-      },
-      potentialFriends: potentialUsers.map((u) => ({
-        id: u._id,
-        fullName: u.fullName,
-        bio: u.bio,
-        nativeLanguage: u.nativeLanguage,
-        learningLanguage: u.learningLanguage,
-        location: u.location,
-      })),
-    };
-
-    let recommendedIds = [];
-
-    try {
-      // Step 3: Call OpenAI
-      const response = await client.chat.completions.create({
-        model: "gpt-4o-mini",
-        messages: [
-          {
-            role: "system",
-            content:
-              "You are a recommendation engine for a language exchange app. Recommend friends based on shared native/learning languages, location, and bio.",
-          },
-          {
-            role: "user",
-            content: `Given this user: ${JSON.stringify(
-              inputData.currentUser
-            )}, rank the top 5 most compatible friends from this list: ${JSON.stringify(
-              inputData.potentialFriends
-            )}. Return ONLY a JSON array of user IDs in order.`,
-          },
-        ],
-      });
-
-      // Step 4: Parse AI response
-      recommendedIds = JSON.parse(response.choices[0].message.content);
-    } catch (err) {
-      console.error("⚠️ OpenAI failed, using fallback:", err.message);
-    }
-
-    // Step 5: If AI failed → fallback to local matching
-    let recommendedUsers;
-    if (recommendedIds.length > 0) {
-      recommendedUsers = recommendedIds
-        .map((id) =>
-          potentialUsers.find((u) => u._id.toString() === id.toString())
-        )
-        .filter(Boolean);
-    } else {
-      // Local fallback: prioritize same learning/native language or same location
-      recommendedUsers = potentialUsers
-        .filter(
-          (u) =>
-            u.nativeLanguage === currentUser.learningLanguage ||
-            u.learningLanguage === currentUser.nativeLanguage ||
-            u.location === currentUser.location
-        )
-        .slice(0, 5);
-
-      // If still empty, just return first 5
-      if (recommendedUsers.length === 0) {
-        recommendedUsers = potentialUsers.slice(0, 5);
-      }
-    }
-
+    });
     res.status(200).json(recommendedUsers);
   } catch (error) {
     console.error("Error in getRecommendedUsers controller", error.message);
