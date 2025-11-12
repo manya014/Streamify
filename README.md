@@ -157,12 +157,18 @@ This project is licensed under the **MIT License** – see the [LICENSE](LICENSE
 
 ---
 
-## 👨‍💻 Author
+## 👨‍💻 Authors
 
 **Manya Rawat**
 
+
 * GitHub: [@manya014](https://github.com/manya014)
 * LinkedIn: [Manya Rawat](https://www.linkedin.com/in/manya-rawat-55759627b/)
+
+**Riya Verma**
+
+*Github: [@riyav910](https://github.com/riyav910)
+*LinkedIn: [Riya Verma](https://www.linkedin.com/in/riya-verma-28b461289/)
 
 ---
 
